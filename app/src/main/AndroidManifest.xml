@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.mdnsdevicediscovery" >
-
+    package="com.example.mdnsdevicediscovery">
     <!-- Network permissions for API calls, mDNS, and IP lookup -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- WiFi and mDNS discovery permissions -->
@@ -12,8 +11,8 @@
         android:name="android.permission.NEARBY_WIFI_DEVICES"
         tools:targetApi="33" />
 
+<!--    android:name=".MdnsApplication"-->
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,24 +23,19 @@
         android:theme="@style/Theme.MDNSDeviceDiscovery"
         android:usesCleartextTraffic="true"
         tools:ignore="Multidex,GoogleAppIndexingWarning"
-        tools:targetApi="31" >
-<!--        <activity-->
-<!--            android:name=".LoginActivity"-->
-<!--            android:exported="true" >-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        tools:targetApi="31">
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity> &lt;!&ndash; Home/Discovery Activity &ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".HomeActivity"-->
-<!--            android:exported="false"-->
-<!--            android:parentActivityName=".LoginActivity" /> &lt;!&ndash; Detail Activity &ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".DetailActivity"-->
-<!--            android:exported="false"-->
-<!--            android:parentActivityName=".HomeActivity" /> &lt;!&ndash; Google Sign-In handling &ndash;&gt;-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Home/Discovery Activity -->
         <meta-data
             android:name="com.google.android.gms.signin"
             android:resource="@string/default_web_client_id" />

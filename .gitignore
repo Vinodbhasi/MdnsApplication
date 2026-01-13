@@ -1,4 +1,20 @@
+# Built application files
+*.apk
+*.aab
+*.so
+
+# Gradle
+.gradle/
+build/
+local.properties
+
+# Logs
+*.log
+
+# Android Studio
+.idea/
 *.iml
+
 .gradle
 /local.properties
 /.idea/caches
@@ -12,4 +28,4 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
