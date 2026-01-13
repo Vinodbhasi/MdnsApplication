@@ -6,10 +6,10 @@ plugins {
 
 android {
     namespace = "com.example.mdnsdevicediscovery"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.example.mdnsdevicediscovery"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -57,9 +57,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
-    implementation("androidx.activity:activity-ktx:1.9.1")
+    implementation("androidx.activity:activity-ktx:1.12.2")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation(libs.activity)
 
     // Room for SQLite
     val roomVersion = "2.6.1"
