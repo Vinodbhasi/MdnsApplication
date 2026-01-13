@@ -32,12 +32,15 @@ public class HomeActivity extends AppCompatActivity implements DeviceDetailAdapt
     private DeviceDetailDao deviceDetailDao;
     private NsdManager nsdManager;
     private List<String> serviceTypes = Arrays.asList(
-            "_airplay._tcp",
-            "_ipp._tcp",
-            "_http._tcp",
-            "_googlecast._tcp",
-            "_workstation._tcp",
-            "_smb._tcp"
+            "_airplay._tcp",        // ✅ Apple TV, AirPlay (mDNS)
+            "_raop._tcp",           // ✅ AirPlay Audio (mDNS)
+            "_ipp._tcp",            // ✅ Printers/Scanners (mDNS)
+            "_ipps._tcp",           // ✅ Secure printers (mDNS)
+            "_http._tcp",           // ✅ Smart devices, routers (mDNS)
+            "_googlecast._tcp",     // ✅ Chromecast (mDNS)
+            "_workstation._tcp",    // ✅ Windows PCs (mDNS)
+            "_smb._tcp",            // ✅ File servers/NAS (mDNS)
+            "_ssh._tcp"             // ✅ Linux/Mac servers (mDNS)
     );
     private static final String TAG = "HomeActivity";
     private List<String> currentDiscoveryIps = new ArrayList<>();  // Track current scan
