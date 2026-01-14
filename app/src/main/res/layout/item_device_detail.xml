@@ -34,15 +34,15 @@
                 android:text="Device Name"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/device_ip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="192.168.1.100"
+                android:text="Device Ip"
                 android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 
