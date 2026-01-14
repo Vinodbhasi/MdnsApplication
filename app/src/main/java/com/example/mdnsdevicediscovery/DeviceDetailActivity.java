@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import org.json.JSONObject;
 
 public class DeviceDetailActivity extends AppCompatActivity {
 
@@ -116,10 +117,18 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
         if (conn.getResponseCode() == 200) {
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String json = br.readLine();
+            StringBuilder fullResponse = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                fullResponse.append(line);
+            }
             br.close();
 
+            String json = fullResponse.toString();
+            System.out.println("FULL JSON: " + json);
+
             IpInfo info = parseGeoJson(json);
+            System.out.println("ip is : "+info.ip+", info city :"+info.city);
             info.ip = ip;
             conn.disconnect();
             return info;
@@ -142,34 +151,36 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
     private IpInfo parseGeoJson(String json) {
         IpInfo info = new IpInfo();
-        if (json == null) return info;
+        if (json == null || json.trim().isEmpty()) return info;
 
-        // Parse all fields: city, region, country, loc, org, etc.
-        String[] fields = {"city", "region", "country", "loc", "org"};
-        for (String field : fields) {
-            int start = json.indexOf("\"" + field + "\":\"") + field.length() + 4;
-            if (start > field.length() + 3) {
-                int end = json.indexOf("\"", start);
-                String value = json.substring(start, end);
-                switch (field) {
-                    case "city": info.city = value; break;
-                    case "region": info.region = value; break;
-                    case "country": info.country = value; break;
-                    case "loc": info.location = value; break;
-                    case "org": info.org = value; break;
-                }
-            }
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+
+            // Safe extraction with .optString() - never null
+            info.city = jsonObject.optString("city", "N/A");
+            info.region = jsonObject.optString("region", "N/A");
+            info.country = jsonObject.optString("country", "N/A");
+            info.location = jsonObject.optString("loc", "N/A");
+            info.org = jsonObject.optString("org", "N/A");
+            info.postal = jsonObject.optString("postal", "N/A");
+            info.timezone = jsonObject.optString("timezone", "N/A");
+
+            System.out.println("Parsed: " + info.city + ", " + info.region);
+
+        } catch (Exception e) {
+            System.out.println("JSON parse error: " + e.getMessage());
         }
+
         return info;
     }
 
     private void populateUI(IpInfo info) {
-        publicIpAddressDetails.setText("Ip : "+info.ip+" City : "+info.city+" Region : "+info.region+" Country : "+info.country+" Org : "+info.org+" Loc : "+info.location+" Carrier : N/A");
+        publicIpAddressDetails.setText("Ip : "+info.ip+", City : "+info.city+", Region : "+info.region+", Country : "+info.country+", Org : "+info.org+", Loc : "+info.location+", Carrier : N/A");
     }
 
     // Data class for IP info
     private static class IpInfo {
-        String ip, city, region, country, location, org;
+        String ip, city, region, country, location, org, postal, timezone;
     }
 
 }
